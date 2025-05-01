@@ -2,11 +2,12 @@
 
 ## 🚀项目简介
 
-一个简约的网址导航页
+ 一个简约可配置的静态网址导航页面，帮助展示你的收藏网址。打包后为无依赖单文件，方便各种环境部署。 
 
 ## ⚡功能特点
 
-
+- 简洁美观的界面
+- 适应不同的屏幕，电脑和手机浏览器上体验良好
 
 ## 💻在线示例
 
@@ -14,11 +15,31 @@ https://tools.196000.xyz
 
 ## 📷运行截图
 
-![VPS 剩余价值计算器](docs/screenshots/app.png)
+![简约导航](docs/screenshots/app.png)
 
 ## 📝部署使用
 
-- 下载最新版本，无外部依赖单文件自行部署
+1. 克隆仓库
+
+```yaml
+git clone https://github.com/hahabye/zero-nav.git
+```
+
+2. 根目录文件 `config.yml` 添加或者修改站点，其格式为：
+
+```yaml
+categories:
+  - name: 分类名称
+    icon: 分类图标
+    sites:
+      - title: 网站名称
+        url: 网站地址
+        icon: 网站图标
+        description: 网站描述
+
+```
+
+3. 部署到您的网站
 
 
 ## 📧我要反馈
