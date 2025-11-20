@@ -161,7 +161,61 @@ ADMIN_TOKEN = "your-secret-token"
 
 ## 🌐 部署到 Cloudflare
 
-### 1. 创建 KV 命名空间
+### 方式一：GitHub Actions 自动部署（推荐）
+
+使用 GitHub Actions 实现 CI/CD 自动部署。
+
+#### 1. 配置 GitHub Secrets
+
+前往仓库 **Settings > Secrets and variables > Actions**，添加以下 secrets：
+
+| Secret Name | 说明 | 获取方式 |
+|-------------|------|---------|
+| `CLOUDFLARE_API_TOKEN` | CF API Token | [创建 Token](https://dash.cloudflare.com/profile/api-tokens) |
+| `CLOUDFLARE_ACCOUNT_ID` | CF Account ID | Dashboard 右侧边栏 |
+| `ADMIN_TOKEN` | 管理后台密码 | 自己设置强密码 |
+
+详细配置指南见 [.github/SECRETS.md](.github/SECRETS.md)
+
+#### 2. 创建 KV Namespace
+
+```bash
+# 登录 Cloudflare
+npx wrangler login
+
+# 创建生产环境 KV
+npx wrangler kv:namespace create "BOOKMARKS"
+# 输出: id = "xxxxxxxx"
+
+# 创建预览环境 KV
+npx wrangler kv:namespace create "BOOKMARKS" --preview
+# 输出: preview_id = "yyyyyyyy"
+```
+
+#### 3. 更新 wrangler.toml
+
+```toml
+[[kv_namespaces]]
+binding = "BOOKMARKS_KV"
+id = "xxxxxxxx"              # 替换为上一步的 ID
+preview_id = "yyyyyyyy"      # 替换为上一步的 preview_id
+```
+
+#### 4. 推送代码触发部署
+
+```bash
+git add .
+git commit -m "Configure deployment"
+git push origin main
+```
+
+GitHub Actions 会自动构建并部署到 Cloudflare Workers。
+
+---
+
+### 方式二：本地手动部署
+
+#### 1. 创建 KV 命名空间
 
 ```bash
 # 生产环境
@@ -173,7 +227,7 @@ npx wrangler kv:namespace create "BOOKMARKS" --preview
 
 记录输出的 namespace ID。
 
-### 2. 更新 wrangler.toml
+#### 2. 更新 wrangler.toml
 
 ```toml
 [[kv_namespaces]]
@@ -185,13 +239,13 @@ preview_id = "你的预览KV_ID"
 ADMIN_TOKEN = "设置一个强密码"
 ```
 
-### 3. 部署
+#### 3. 部署
 
 ```bash
 npm run deploy
 ```
 
-### 4. 初始化数据（可选）
+#### 4. 初始化数据（可选）
 
 ```bash
 # 通过 wrangler 导入初始数据
