@@ -4,8 +4,10 @@ compatibility_date = "2025-11-20"
 
 [[kv_namespaces]]
 binding = "BOOKMARKS_KV"
-id = "your-kv-namespace-id"
-preview_id = "your-preview-kv-namespace-id"
+id = "your-kv-namespace-id"              # 替换为实际的 KV namespace ID
+preview_id = "your-preview-kv-namespace-id"  # 替换为实际的预览 KV ID
 
-[vars]
-ADMIN_TOKEN = "change-me-in-production"
+# ADMIN_TOKEN 从环境变量或 GitHub Secrets 注入
+# 本地开发可以在这里设置，生产环境从 Secrets 读取
+# [vars]
+# ADMIN_TOKEN = "local-dev-token"
