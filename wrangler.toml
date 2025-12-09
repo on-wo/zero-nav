@@ -4,7 +4,7 @@ compatibility_date = "2025-11-20"
 
 [[kv_namespaces]]
 binding = "BOOKMARKS_KV"
-id = "bb118ee538a04aafbd60995912677f8c"              # 替换为实际的 KV namespace ID
+id = "020b5817371c4bccab3771237ae56df1"              # 替换为实际的 KV namespace ID
 preview_id = "your-preview-kv-namespace-id"  # 替换为实际的预览 KV ID
 
 # ADMIN_TOKEN 从环境变量或 GitHub Secrets 注入
